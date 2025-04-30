@@ -3,10 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import * as dotenv from 'dotenv';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Event } from 'src/database/entitites/events.entity';
-import { Ranking } from 'src/database/entitites/rankings.entity';
-import { Fight } from 'src/database/entitites/fights.entity';
-import { Fighter } from 'src/database/entitites/fighters.entity';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 dotenv.config();
 
@@ -21,6 +19,10 @@ dotenv.config();
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
     }),
   ],
   controllers: [AppController],
