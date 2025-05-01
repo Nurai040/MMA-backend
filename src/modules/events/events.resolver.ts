@@ -4,7 +4,7 @@ import { CreateEventInput } from './dto/create-event.input';
 import { EventMma } from 'src/database/entitites/events.entity';
 import { UpdateEventInput } from './dto/update-event.input';
 
-@Resolver()
+@Resolver(() => EventMma)
 export class EventsResolver {
   constructor(private readonly eventsService: EventsService) {}
 

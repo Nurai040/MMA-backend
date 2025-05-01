@@ -37,7 +37,7 @@ export class Fight {
     eager: true,
   })
   @JoinColumn({ name: 'event_id' })
-  event: Event;
+  event: EventMma;
 
   @Field()
   @Column({ type: 'enum', enum: ['win', 'loss', 'draw'] })

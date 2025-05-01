@@ -10,7 +10,7 @@ export class FightsService {
   constructor(@InjectRepository(Fight) private repo: Repository<Fight>) {}
 
   async addFight(body: CreateFightInput) {
-    const fight = await this.repo.create({
+    const fight = this.repo.create({
       ...body,
       fighter: { id: body.fighter_id },
       opponent: { id: body.opponent_id },
@@ -33,9 +33,9 @@ export class FightsService {
     const fight = await this.repo.preload({
       id,
       ...body,
-      fighter: body.fighter_id ? { id: body.fighter_id } : undefined,
-      opponent: body.opponent_id ? { id: body.fighter_id } : undefined,
-      event: body.event_id ? { id: body.fighter_id } : undefined,
+      fighter: { id: body.fighter_id },
+      opponent: { id: body.fighter_id },
+      event: { id: body.fighter_id },
     });
     if (!fight) throw new NotFoundException(`Fight #${id} not found`);
     return this.repo.save(fight);
