@@ -9,7 +9,9 @@ export class FightResolver {
   constructor(private readonly fightsService: FightsService) {}
 
   @Mutation(() => Fight)
-  async create(@Args('createFightInput') createFightInput: CreateFightInput) {
+  async createFight(
+    @Args('createFightInput') createFightInput: CreateFightInput,
+  ) {
     return await this.fightsService.addFight(createFightInput);
   }
 

@@ -7,8 +7,9 @@ import { UpdateFighterInput } from './dto/update-fighter.input';
 @Resolver(() => Fighter)
 export class FighterResolver {
   constructor(private readonly fighterService: FighterService) {}
+
   @Mutation(() => Fighter)
-  async create(
+  async createFighter(
     @Args('createFighterInput') createFighterInput: CreateFighterInput,
   ) {
     return await this.fighterService.addFighter(createFighterInput);
@@ -25,7 +26,7 @@ export class FighterResolver {
   }
 
   @Mutation(() => Fighter)
-  async updateFight(
+  async updateFighter(
     @Args('updateFighterInput') updateFighterInput: UpdateFighterInput,
   ) {
     return await this.fighterService.updateFighter(
@@ -35,7 +36,7 @@ export class FighterResolver {
   }
 
   @Mutation(() => Fighter)
-  async deleteFight(@Args('id', { type: () => Int }) id: number) {
+  async deleteFighter(@Args('id', { type: () => Int }) id: number) {
     return await this.fighterService.delete(id);
   }
 }

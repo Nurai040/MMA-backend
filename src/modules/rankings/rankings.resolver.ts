@@ -9,7 +9,7 @@ export class RankingsResolver {
   constructor(private readonly rankingsService: RankingsService) {}
 
   @Mutation(() => Ranking)
-  async create(
+  async createRanking(
     @Args('createRankingInput') createRankingInput: CreateRankingInput,
   ) {
     return await this.rankingsService.addRanking(createRankingInput);
@@ -26,7 +26,7 @@ export class RankingsResolver {
   }
 
   @Mutation(() => Ranking)
-  async updateFight(
+  async updateRanking(
     @Args('updateRankingInput') updateRankingInput: UpdateRankingInput,
   ) {
     return await this.rankingsService.updateRanking(
@@ -36,7 +36,7 @@ export class RankingsResolver {
   }
 
   @Mutation(() => Ranking)
-  async deleteFight(@Args('id', { type: () => Int }) id: number) {
+  async deleteRanking(@Args('id', { type: () => Int }) id: number) {
     return await this.rankingsService.delete(id);
   }
 }

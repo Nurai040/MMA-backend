@@ -8,7 +8,9 @@ import { UpdateEventInput } from './dto/update-event.input';
 export class EventsResolver {
   constructor(private readonly eventsService: EventsService) {}
 
-  async create(@Args('createEventInput') createEventInput: CreateEventInput) {
+  async createEvent(
+    @Args('createEventInput') createEventInput: CreateEventInput,
+  ) {
     return await this.eventsService.addEvent(createEventInput);
   }
 
@@ -23,7 +25,7 @@ export class EventsResolver {
   }
 
   @Mutation(() => EventMma)
-  async updateFight(
+  async updateEvent(
     @Args('updateEventInput') updateEventInput: UpdateEventInput,
   ) {
     return await this.eventsService.updateEvent(
@@ -33,7 +35,7 @@ export class EventsResolver {
   }
 
   @Mutation(() => EventMma)
-  async deleteFight(@Args('id', { type: () => Int }) id: number) {
+  async deleteEvent(@Args('id', { type: () => Int }) id: number) {
     return await this.eventsService.delete(id);
   }
 }
