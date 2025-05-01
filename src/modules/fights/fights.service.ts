@@ -41,6 +41,7 @@ export class FightsService {
 
   async delete(id: number) {
     const fight = await this.findOne(id);
+    if (!fight) throw new NotFoundException(`Fight #${id} not found`);
     return this.repo.remove(fight);
   }
 }
