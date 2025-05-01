@@ -1,4 +1,4 @@
-import { Event } from 'src/database/entitites/events.entity';
+import { EventMma } from 'src/database/entitites/events.entity';
 import { Fighter } from 'src/database/entitites/fighters.entity';
 import { Fight } from 'src/database/entitites/fights.entity';
 import { Ranking } from 'src/database/entitites/rankings.entity';
@@ -14,7 +14,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [Fighter, Fight, Ranking, Event],
+  entities: [Fighter, Fight, Ranking, EventMma],
   synchronize: true,
   migrations: ['src/database/migrations/*.ts'],
 });

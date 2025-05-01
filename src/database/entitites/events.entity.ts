@@ -10,8 +10,8 @@ import { Fight } from './fights.entity';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-@Entity()
-export class Event {
+@Entity('event')
+export class EventMma {
   @Field(() => Int)
   @PrimaryGeneratedColumn()
   id: number;

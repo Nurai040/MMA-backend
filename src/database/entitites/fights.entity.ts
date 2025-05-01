@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Fighter } from './fighters.entity';
-import { Event } from './events.entity';
+import { EventMma } from './events.entity';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
@@ -32,8 +32,8 @@ export class Fight {
   @JoinColumn({ name: 'opponent_id' })
   opponent: Fighter;
 
-  @Field(() => Event)
-  @ManyToOne(() => Event, (event) => event.fights, {
+  @Field(() => EventMma)
+  @ManyToOne(() => EventMma, (event) => event.fights, {
     eager: true,
   })
   @JoinColumn({ name: 'event_id' })

@@ -25,10 +25,4 @@ export class CreateFighterInput {
 
   @Field({ nullable: true })
   team?: string;
-
-  @Field()
-  created_at: Date;
-
-  @Field()
-  updated_at: Date;
 }

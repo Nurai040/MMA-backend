@@ -21,7 +21,9 @@ export class FighterService {
   }
 
   async findOne(id: number) {
-    return await this.repo.findBy({ id });
+    const fighter = await this.repo.findBy({ id });
+    if (!fighter) throw new NotFoundException(`Fighter #${id} not found`);
+    return fighter;
   }
 
   async updateFighter(id: number, body: UpdateFighterInput) {
