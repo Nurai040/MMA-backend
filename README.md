@@ -22,15 +22,92 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## ERD- Diagram
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+![ERD](ERD-Diagram.png)
+
+## SQL Queries
+
+````sql
+create table fighters (
+id SERIAL PRIMARY KEY,
+name TEXT NOT NULL,
+wins INT NOT NULL DEFAULT 0,
+losses INT NOT NULL DEFAULT 0,
+knockouts INT NOT NULL DEFAULT 0,
+submissions INT NOT NULL DEFAULT 0,
+weight_class TEXT NOT NULL,
+nationality TEXT NOT NULL,
+team TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+create table fights (
+id SERIAL PRIMARY KEY,
+fighter_id INT REFERENCES fighters(id),
+opponent_id INT REFERENCES fighters(id),
+fight_date DATE NOT NULL,
+result TEXT CHECK(result IN ('win', 'loss', 'draw')),
+method TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = CURRENT_TIMESTAMP;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER set_updated_at
+BEFORE UPDATE ON fighters
+FOR EACH ROW
+EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER set_updated_at
+BEFORE UPDATE ON fights
+FOR EACH ROW
+EXECUTE FUNCTION update_updated_at_column();
+
+
+create table events (
+id SERIAL PRIMARY KEY,
+name TEXT NOT NULL,
+location TEXT NOT NULL,
+event_date DATE NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TRIGGER set_updated_at
+BEFORE UPDATE ON events
+FOR EACH ROW
+EXECUTE FUNCTION update_updated_at_column();
+
+ALTER TABLE fights
+ADD COLUMN event_id INT REFERENCES events(id);
+
+create table rankings (
+id SERIAL PRIMARY KEY,
+fighter_id INT REFERENCES fighters(id) ON DELETE CASCADE,
+weight_class TEXT NOT NULL,
+rank INT NOT NULL,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TRIGGER set_updated_at
+BEFORE UPDATE ON rankings
+FOR EACH ROW
+EXECUTE FUNCTION update_updated_at_column();
 
 ## Installation
 
 ```bash
 $ npm install
-```
+````
 
 ## Running the app
 
@@ -44,30 +121,3 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
