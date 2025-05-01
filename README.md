@@ -1,3 +1,6 @@
+## Description
+MMA app using GraphQL, NestJS, TypeORM
+
 ## ERD- Diagram
 
 ![ERD](ERD-Diagram.png)
