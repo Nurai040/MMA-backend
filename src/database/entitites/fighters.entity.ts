@@ -62,7 +62,7 @@ export class Fighter {
   fightsAsFighter: Fight[];
 
   @Field(() => [Fight], { nullable: true })
-  @OneToMany(() => Fight, (fight) => fight.opponet)
+  @OneToMany(() => Fight, (fight) => fight.opponent)
   fightsAsOpponent: Fight[];
 
   @Field(() => [Ranking], { nullable: true })

@@ -30,7 +30,7 @@ export class Fight {
     eager: true,
   })
   @JoinColumn({ name: 'opponent_id' })
-  opponet: Fighter;
+  opponent: Fighter;
 
   @Field(() => Event)
   @ManyToOne(() => Event, (event) => event.fights, {
