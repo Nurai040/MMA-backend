@@ -1,3 +1,4 @@
 Script.sql
 node_modules/
 .env
+dist/
